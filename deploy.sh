@@ -32,8 +32,8 @@ if ! command -v docker &> /dev/null; then
     exit 1
 fi
 
-# Check if Docker Compose is installed
-if ! command -v docker-compose &> /dev/null; then
+# Check if Docker Compose is installed (plugin version)
+if ! docker compose version &> /dev/null; then
     print_error "Docker Compose is not installed. Please install Docker Compose first."
     exit 1
 fi
@@ -54,7 +54,7 @@ fi
 
 # Stop existing containers
 print_status "Stopping existing containers..."
-docker-compose -f docker-compose.prod.yml down --remove-orphans || true
+docker compose -f docker-compose.prod.yml down --remove-orphans || true
 
 # Remove old images (optional)
 read -p "Do you want to remove old Docker images to free up space? (y/N): " -n 1 -r
@@ -66,7 +66,7 @@ fi
 
 # Build and start services
 print_status "Building and starting services..."
-docker-compose -f docker-compose.prod.yml up --build -d
+docker compose -f docker-compose.prod.yml up --build -d
 
 # Wait for services to be healthy
 print_status "Waiting for services to be healthy..."
@@ -80,7 +80,7 @@ if curl -f http://localhost:8000/health > /dev/null 2>&1; then
     print_status "✅ Backend is healthy"
 else
     print_error "❌ Backend health check failed"
-    docker-compose -f docker-compose.prod.yml logs backend
+    docker compose -f docker-compose.prod.yml logs backend
     exit 1
 fi
 
@@ -89,7 +89,7 @@ if curl -f http://localhost/health > /dev/null 2>&1; then
     print_status "✅ Frontend is healthy"
 else
     print_error "❌ Frontend health check failed"
-    docker-compose -f docker-compose.prod.yml logs frontend
+    docker compose -f docker-compose.prod.yml logs frontend
     exit 1
 fi
 
@@ -102,12 +102,12 @@ echo "  Backend API: http://localhost:8000"
 echo "  API Documentation: http://localhost:8000/docs"
 echo
 echo "🔧 Management Commands:"
-echo "  View logs: docker-compose -f docker-compose.prod.yml logs -f"
-echo "  Stop services: docker-compose -f docker-compose.prod.yml down"
-echo "  Restart services: docker-compose -f docker-compose.prod.yml restart"
-echo "  Update services: docker-compose -f docker-compose.prod.yml up --build -d"
+echo "  View logs: docker compose -f docker-compose.prod.yml logs -f"
+echo "  Stop services: docker compose -f docker-compose.prod.yml down"
+echo "  Restart services: docker compose -f docker-compose.prod.yml restart"
+echo "  Update services: docker compose -f docker-compose.prod.yml up --build -d"
 echo
 
 # Show container status
 print_status "Container Status:"
-docker-compose -f docker-compose.prod.yml ps
+docker compose -f docker-compose.prod.yml ps
