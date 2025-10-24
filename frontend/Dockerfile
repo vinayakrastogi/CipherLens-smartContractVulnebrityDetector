@@ -6,17 +6,14 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies (including devDependencies for build)
-RUN npm ci --silent
+# Install dependencies
+RUN npm install --silent
 
 # Copy source code
 COPY . .
 
 # Build the application for production
 RUN npm run build
-
-# Clean up dev dependencies to reduce image size
-RUN npm prune --production
 
 # Production stage
 FROM nginx:alpine
