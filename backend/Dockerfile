@@ -36,6 +36,13 @@ COPY --from=builder /root/.local /root/.local
 # Install analysis tools
 RUN pip install --no-cache-dir slither-analyzer mythril
 
+# Install and pin Solidity compiler compatible with pragma ^0.8.x
+# Using solc-select to manage versions for Slither/Mythril
+RUN pip install --no-cache-dir solc-select && \
+    solc-select install 0.8.20 && \
+    solc-select use 0.8.20 && \
+    solc --version
+
 # Copy application code
 COPY app/ ./app/
 

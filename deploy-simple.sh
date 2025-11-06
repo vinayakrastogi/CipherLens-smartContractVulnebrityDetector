@@ -117,3 +117,7 @@ echo
 # Show container status
 print_status "Container Status:"
 docker compose -f docker-compose.prod.yml ps
+
+
+
+

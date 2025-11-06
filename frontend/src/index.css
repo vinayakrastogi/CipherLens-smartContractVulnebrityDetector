@@ -16,6 +16,27 @@ code {
     monospace;
 }
 
+/* Dark theme overrides and animated background */
+:::-webkit-scrollbar { width: 10px; }
+:::-webkit-scrollbar-track { background: #0b0b10; }
+:::-webkit-scrollbar-thumb { background: #2a2a36; border-radius: 6px; }
+:::-webkit-scrollbar-thumb:hover { background: #3a3a48; }
+
+.bg-gradient-animate {
+  background: radial-gradient(1200px 800px at 10% 10%, rgba(217, 70, 239, 0.15), transparent 40%),
+              radial-gradient(1000px 700px at 90% 20%, rgba(99, 102, 241, 0.15), transparent 40%),
+              radial-gradient(1200px 800px at 30% 90%, rgba(168, 85, 247, 0.15), transparent 40%),
+              linear-gradient(180deg, #0b0b10 0%, #0e0e14 100%);
+  background-size: 200% 200%;
+  animation: gradient-move 18s ease infinite;
+}
+
+@keyframes gradient-move {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

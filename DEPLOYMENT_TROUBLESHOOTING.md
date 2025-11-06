@@ -173,3 +173,7 @@ docker compose -f docker-compose.prod.yml ps
 # Save logs to file
 docker compose -f docker-compose.prod.yml logs > deployment.log 2>&1
 ```
+
+
+
+

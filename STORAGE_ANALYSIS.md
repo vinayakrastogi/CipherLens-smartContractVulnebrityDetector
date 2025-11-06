@@ -173,3 +173,7 @@ tar -czf backup-$(date +%Y%m%d).tar.gz \
    - Stop instance
    - Modify volume size in AWS Console
    - Resize filesystem: `sudo resize2fs /dev/xvda1`
+
+
+
+
